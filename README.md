@@ -1,4 +1,4 @@
 HashCompute
 ===========
 
-Java program that computes different types of hash functions
+This software can compute several hash functions used in verification of messages / file integrity. 
