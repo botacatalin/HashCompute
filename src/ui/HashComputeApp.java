@@ -1,13 +1,16 @@
 package ui;
 
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
@@ -44,9 +47,13 @@ public class HashComputeApp {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private final JLabel lblFile = new JLabel("File");
 	private final JMenuBar menuBar = new JMenuBar();
-	private final JMenu mnHashcompute = new JMenu("HashCompute");
+	private final JMenu mnHashcompute = new JMenu("Hash Compute");
 	private final JMenuItem mntmAbout = new JMenuItem("About");
 	private final JMenuItem mntmExit = new JMenuItem("Exit");
+	
+	//
+	JFileChooser fc = new JFileChooser();
+
 	/**
 	 * Launch the application.
 	 */
@@ -104,6 +111,24 @@ public class HashComputeApp {
 		gbc_btnBrowse.insets = new Insets(0, 0, 5, 0);
 		gbc_btnBrowse.gridx = 2;
 		gbc_btnBrowse.gridy = 1;
+		btnBrowse.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				 if (e.getSource() == btnBrowse) {
+			            int returnVal = fc.showOpenDialog(btnBrowse);
+			 
+			            if (returnVal == JFileChooser.APPROVE_OPTION) {
+			                File file = fc.getSelectedFile();
+			                textField.setText(file.getName());
+			                //This is where a real application would open the file.
+			               // log.append("Opening: " + file.getName() + "." + newline);
+			            } else {
+			               // log.append("Open command cancelled by user." + newline);
+			            }
+			           // log.setCaretPosition(log.getDocument().getLength());
+				 }
+			}
+		});
 		frame.getContentPane().add(btnBrowse, gbc_btnBrowse);
 		
 		GridBagConstraints gbc_rdbtn_MD5 = new GridBagConstraints();
